@@ -1,1 +1,11 @@
-spring.application.name: middle
+spring:
+  application:
+    name: middle
+
+project:
+  register:
+    http:
+      enabled: false
+    memory:
+      enabled: false
+    path: "http://localhost:8082:/register"

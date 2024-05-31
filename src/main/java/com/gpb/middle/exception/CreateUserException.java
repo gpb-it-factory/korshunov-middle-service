@@ -4,7 +4,7 @@ import com.gpb.middle.dto.response.Error;
 import lombok.Getter;
 
 @Getter
-public class ErrorException extends RuntimeException {
+public class CreateUserException extends RuntimeException {
 
     private final int statusCode;
 
@@ -12,7 +12,7 @@ public class ErrorException extends RuntimeException {
 
     private final String trace_id;
 
-    public ErrorException(Error error) {
+    public CreateUserException(Error error) {
         super(error.getMessage());
         this.statusCode = Integer.getInteger(error.getCode());
         this.type = error.getType();
