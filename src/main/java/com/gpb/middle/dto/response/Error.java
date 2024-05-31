@@ -1,12 +1,15 @@
 package com.gpb.middle.dto.response;
 
-public class Error {
+import lombok.Getter;
 
-    public String message;
+@Getter
+public final class Error {
 
-    public String type;
+    private String message;
 
-    public String code;
+    private String type;
 
-    public String traceId;
+    private String code;
+
+    private String trace_id;
 }

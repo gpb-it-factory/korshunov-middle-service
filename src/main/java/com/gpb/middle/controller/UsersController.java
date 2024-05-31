@@ -1,12 +1,12 @@
 package com.gpb.middle.controller;
 
 import com.gpb.middle.commander.Register;
-import com.gpb.middle.dto.request.CreateAccountDTO;
 import com.gpb.middle.dto.request.CreateUserDTO;
+import com.gpb.middle.dto.response.Error;
+import com.gpb.middle.dto.response.UserDTO;
+import com.gpb.middle.exception.ErrorException;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -14,30 +14,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/users")
 public class UsersController {
 
-    @Autowired
-    private Register register;
+    private final Register register;
 
-    @PostMapping(path = "")
-    @ResponseStatus(HttpStatus.OK)
-    public String createUser(@Valid @RequestBody CreateUserDTO createUserDTO) {
-        return register.exec(createUserDTO);
+    public UsersController(Register register) {
+        this.register = register;
     }
 
-//    @GetMapping(path = "/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void show(@PathParam("id") Long id) {
-//
-//    }
-//
-//    @PostMapping(path = "/{id}/accounts")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void createAccount(@PathParam("id") Long id, @RequestBody CreateAccountDTO createAccountDTO) {
-//
-//    }
-//
-//    @GetMapping(path = "/{id}/accounts")
-//    @ResponseStatus(HttpStatus.OK)
-//    public  showAccounts(@PathParam("id") Long id) {
-//
-//    }
+    @PostMapping
+    public ResponseEntity<String> createUser(@Valid @RequestBody CreateUserDTO createUserDTO) {
+        var result = register.exec(createUserDTO);
+        if (result instanceof UserDTO userDTO) {
+            return ResponseEntity.ok()
+                    .body("Вы успешно зарегистрированы!\nВаш UserId: " + userDTO.getUserId());
+        }
+        throw new ErrorException((Error) result);
+    }
 }
