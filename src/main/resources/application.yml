@@ -7,5 +7,5 @@ project:
     http:
       enabled: false
     memory:
-      enabled: false
+      enabled: true
     path: "http://localhost:8082:/register"

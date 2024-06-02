@@ -1,7 +1,9 @@
 package com.gpb.middle.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public final class Error {
 

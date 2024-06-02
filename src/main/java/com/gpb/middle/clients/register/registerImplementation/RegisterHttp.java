@@ -1,17 +1,18 @@
 package com.gpb.middle.clients.register.registerImplementation;
 
+import com.gpb.middle.clients.register.RegisterImpl;
 import com.gpb.middle.dto.request.CreateUserDTO;
 import com.gpb.middle.dto.response.Error;
+import com.gpb.middle.exception.CreateUserException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 @ConditionalOnProperty(value="project.register.http.enabled")
-public class RegisterHttp {
+public class RegisterHttp implements RegisterImpl {
 
     private final String path;
 
@@ -19,8 +20,11 @@ public class RegisterHttp {
         this.path = path;
     }
 
-    public ResponseEntity<Error> runRequest(CreateUserDTO createUserDTO) {
+    public void runRequest(CreateUserDTO createUserDTO) {
         HttpEntity<CreateUserDTO> createUserDTOHttpEntity = new HttpEntity<>(createUserDTO);
-        return new RestTemplate().postForEntity(path, createUserDTOHttpEntity, Error.class);
+        var result = new RestTemplate().postForEntity(path, createUserDTOHttpEntity, Error.class);
+        if (result.getStatusCode().isError()) {
+            throw new CreateUserException(result.getBody());
+        }
     }
 }
