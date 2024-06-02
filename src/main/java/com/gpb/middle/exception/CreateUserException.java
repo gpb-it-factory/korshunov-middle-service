@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 public class CreateUserException extends RuntimeException {
 
-    private final Error error;
+    private final String code;
 
     public CreateUserException(Error error) {
-        super();
-        this.error = error;
+        super(error.getMessage());
+        this.code = error.getCode();
     }
 }

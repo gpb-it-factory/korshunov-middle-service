@@ -22,11 +22,7 @@ public class RegisterInMemory implements RegisterImpl {
 
     public void checkUser(UserDTO user) {
         if (users.contains(user)) {
-            var error = new Error(
-                    "Вы уже зарегистрированы!",
-                    "CreateUserException",
-                    "400",
-                    "some_trace_id");
+            var error = new Error("Вы уже зарегистрированы!", "400");
             throw new CreateUserException(error);
         };
     }
