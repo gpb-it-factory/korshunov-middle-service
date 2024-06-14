@@ -1,6 +1,6 @@
-package com.gpb.middle.clients.register.registerImplementation;
+package com.gpb.middle.services.userRegisterService.userRegisterServiceClient;
 
-import com.gpb.middle.clients.register.RegisterImpl;
+import com.gpb.middle.services.userRegisterService.UserRegisterServiceClientImpl;
 import com.gpb.middle.dto.request.CreateUserDTO;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.dto.response.UserDTO;
@@ -12,11 +12,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @ConditionalOnProperty(value="project.register.memory.enabled")
-public class RegisterInMemory implements RegisterImpl {
+public class UserRegisterInMemoryClient implements UserRegisterServiceClientImpl {
 
     private final Set<UserDTO> users;
 
-    public RegisterInMemory() {
+    public UserRegisterInMemoryClient() {
         this.users = ConcurrentHashMap.newKeySet();
     }
 
