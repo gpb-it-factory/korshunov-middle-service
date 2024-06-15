@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-@ConditionalOnProperty(value="project.register.http.enabled")
-public class UserRegisterHttpClient implements UserRegisterServiceClientImpl {
+@ConditionalOnProperty(value="project.http.enabled")
+public class UserRegisterServiceHttpClient implements UserRegisterServiceClientImpl {
 
     private final String path;
 
-    public UserRegisterHttpClient(@Value("${project.register.path}") String path) {
+    public UserRegisterServiceHttpClient(@Value("${project.register.path}") String path) {
         this.path = path;
     }
 

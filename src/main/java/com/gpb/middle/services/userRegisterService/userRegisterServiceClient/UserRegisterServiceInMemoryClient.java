@@ -11,12 +11,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-@ConditionalOnProperty(value="project.register.memory.enabled")
-public class UserRegisterInMemoryClient implements UserRegisterServiceClientImpl {
+@ConditionalOnProperty(value="project.memory.enabled")
+public class UserRegisterServiceInMemoryClient implements UserRegisterServiceClientImpl {
 
     private final Set<UserDTO> users;
 
-    public UserRegisterInMemoryClient() {
+    public UserRegisterServiceInMemoryClient() {
         this.users = ConcurrentHashMap.newKeySet();
     }
 
