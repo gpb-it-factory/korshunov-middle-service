@@ -3,9 +3,11 @@ spring:
     name: middle
 
 project:
+  http:
+    enabled: true
+  memory:
+    enabled: false
   register:
-    http:
-      enabled: false
-    memory:
-      enabled: true
-    path: "http://localhost:8082:/register"
+    path: "http://localhost:8080/v2/users"
+  create_account:
+    path: "http://localhost:8080/v2/users/new"
