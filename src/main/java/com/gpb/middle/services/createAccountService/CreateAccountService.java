@@ -16,7 +16,7 @@ public class CreateAccountService {
         this.createAccountServiceClient = createAccountServiceClient;
     }
 
-    public void exec(Long id, CreateAccountDTO createAccountDTO) {
+    public void create(Long id, CreateAccountDTO createAccountDTO) {
         try {
             var response = createAccountServiceClient.runRequest(id, createAccountDTO);
 

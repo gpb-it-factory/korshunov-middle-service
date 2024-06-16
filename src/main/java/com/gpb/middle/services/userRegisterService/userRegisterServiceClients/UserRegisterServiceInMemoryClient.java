@@ -6,6 +6,7 @@ import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.dto.response.UserDTO;
 import com.gpb.middle.exception.CreateUserException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,16 +21,16 @@ public class UserRegisterServiceInMemoryClient implements UserRegisterServiceCli
         this.users = ConcurrentHashMap.newKeySet();
     }
 
-    public void checkUser(UserDTO user) {
-        if (users.contains(user)) {
-            var error = new Error("Вы уже зарегистрированы!", "400");
-            throw new CreateUserException(error);
-        };
+    public boolean checkUser(UserDTO user) {
+        return users.contains(user);
     }
 
-    public void runRequest(CreateUserDTO createUserDTO) {
+    public ResponseEntity<Error> runRequest(CreateUserDTO createUserDTO) {
         var newUser = new UserDTO(Long.toString(createUserDTO.getUserId()));
-        checkUser(newUser);
+        if (checkUser(newUser)) {
+            return ResponseEntity.status(400).body(new Error("Вы уже зарегистрированы!", "400"));
+        }
         users.add(newUser);
+        return ResponseEntity.status(204).build();
     }
 }

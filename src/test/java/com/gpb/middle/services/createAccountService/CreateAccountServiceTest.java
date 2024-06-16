@@ -31,7 +31,7 @@ public class CreateAccountServiceTest {
         Mockito.doReturn(response).when(createAccountServiceClient).runRequest(any(), any());
 
         Assertions.assertThrows(CreateAccountException.class,
-                () -> createAccountService.exec(1L, new CreateAccountDTO("name")));
+                () -> createAccountService.create(1L, new CreateAccountDTO("name")));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class CreateAccountServiceTest {
         Mockito.doThrow(RestClientException.class).when(createAccountServiceClient).runRequest(any(), any());
 
         Assertions.assertThrows(CreateAccountException.class,
-                () -> createAccountService.exec(1L, new CreateAccountDTO("name")));
+                () -> createAccountService.create(1L, new CreateAccountDTO("name")));
     }
 
     @Test
@@ -47,6 +47,6 @@ public class CreateAccountServiceTest {
         var response = ResponseEntity.status(204).build();
         Mockito.doReturn(response).when(createAccountServiceClient).runRequest(any(), any());
 
-        Assertions.assertDoesNotThrow(() -> createAccountService.exec(1L, new CreateAccountDTO("name")));
+        Assertions.assertDoesNotThrow(() -> createAccountService.create(1L, new CreateAccountDTO("name")));
     }
 }

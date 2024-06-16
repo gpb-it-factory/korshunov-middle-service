@@ -1,14 +1,13 @@
 package com.gpb.middle.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gpb.middle.dto.request.CreateAccountDTO;
+import com.gpb.middle.dto.request.CreateUserDTO;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.exception.CreateAccountException;
 import com.gpb.middle.services.createAccountService.CreateAccountService;
 import com.gpb.middle.services.userRegisterService.UserRegisterService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.RestClientException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,7 +37,7 @@ public class UsersControllerTests {
     UserRegisterService userRegisterService;
 
     @Test
-    public void testUserController_CorrectAnswerOnCorrectDataResponse() throws Exception {
+    public void testUserController_CorrectAnswerOnCreateAccountWithCorrectData() throws Exception {
         var body = new CreateAccountDTO("name");
         var request = post("/v2/users/{id}/accounts", 11)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,14 +47,37 @@ public class UsersControllerTests {
     }
 
     @Test
-    public void testUserController_CorrectAnswerOnWrongDataResponse() throws Exception {
+    public void testUserController_CorrectAnswerOnCreateAccountWithWrongData() throws Exception {
         var body = new CreateAccountDTO("name");
         var request = post("/v2/users/{id}/accounts", 11)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(body));
 
         Mockito.doThrow(new CreateAccountException(new Error("message", "404")))
-                        .when(createAccountService).exec(any(), any());
+                        .when(createAccountService).create(any(), any());
+
+        mockMvc.perform(request).andExpect(status().is(404));
+    }
+
+    @Test
+    public void testUserController_CorrectAnswerOnCreateUserRegisterWithCorrectData() throws Exception {
+        var body = new CreateUserDTO(111L);
+        var request = post("/v2/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(body));
+
+        mockMvc.perform(request).andExpect(status().is(204));
+    }
+
+    @Test
+    public void testUserController_CorrectAnswerOnUserRegisterWithWrongData() throws Exception {
+        var body = new CreateUserDTO(111L);
+        var request = post("/v2/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(body));
+
+        Mockito.doThrow(new CreateAccountException(new Error("message", "404")))
+                .when(userRegisterService).register(any());
 
         mockMvc.perform(request).andExpect(status().is(404));
     }

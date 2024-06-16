@@ -7,7 +7,9 @@ import com.gpb.middle.exception.CreateUserException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 @Component
@@ -16,15 +18,18 @@ public class UserRegisterServiceHttpClient implements UserRegisterServiceClient 
 
     private final String path;
 
+    private final RestClient restClient;
+
     public UserRegisterServiceHttpClient(@Value("${project.register.path}") String path) {
         this.path = path;
+        this.restClient = RestClient.create();
     }
 
-    public void runRequest(CreateUserDTO createUserDTO) {
-        HttpEntity<CreateUserDTO> createUserDTOHttpEntity = new HttpEntity<>(createUserDTO);
-        var result = new RestTemplate().postForEntity(path, createUserDTOHttpEntity, Error.class);
-        if (result.getStatusCode().isError()) {
-            throw new CreateUserException(result.getBody());
-        }
+    public ResponseEntity<Error> runRequest(CreateUserDTO createUserDTO) {
+        return restClient.post()
+                .uri(path)
+                .body(createUserDTO)
+                .retrieve()
+                .toEntity(Error.class);
     }
 }

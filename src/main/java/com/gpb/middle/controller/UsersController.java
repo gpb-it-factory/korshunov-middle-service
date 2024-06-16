@@ -28,14 +28,14 @@ public class UsersController {
 
     @PostMapping
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO createUserDTO) {
-        userRegisterService.exec(createUserDTO);
+        userRegisterService.register(createUserDTO);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(path = "/{id}/accounts")
     public ResponseEntity<?> createAccount(@PathVariable Long id,
                                            @Valid @RequestBody CreateAccountDTO createAccountDTO) {
-        createAccountService.exec(id, createAccountDTO);
+        createAccountService.create(id, createAccountDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
