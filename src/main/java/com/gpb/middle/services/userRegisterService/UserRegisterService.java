@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRegisterService {
 
-    private final UserRegisterServiceClientImpl userRegisterServiceClient;
+    private final UserRegisterServiceClient userRegisterServiceClient;
 
-    public UserRegisterService(UserRegisterServiceClientImpl userRegisterServiceClient) {
+    public UserRegisterService(UserRegisterServiceClient userRegisterServiceClient) {
         this.userRegisterServiceClient = userRegisterServiceClient;
     }
 

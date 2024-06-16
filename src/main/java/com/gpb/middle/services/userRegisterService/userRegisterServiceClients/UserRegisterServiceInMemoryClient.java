@@ -1,6 +1,6 @@
-package com.gpb.middle.services.userRegisterService.userRegisterServiceClient;
+package com.gpb.middle.services.userRegisterService.userRegisterServiceClients;
 
-import com.gpb.middle.services.userRegisterService.UserRegisterServiceClientImpl;
+import com.gpb.middle.services.userRegisterService.UserRegisterServiceClient;
 import com.gpb.middle.dto.request.CreateUserDTO;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.dto.response.UserDTO;
@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @ConditionalOnProperty(value="project.memory.enabled")
-public class UserRegisterServiceInMemoryClient implements UserRegisterServiceClientImpl {
+public class UserRegisterServiceInMemoryClient implements UserRegisterServiceClient {
 
     private final Set<UserDTO> users;
 

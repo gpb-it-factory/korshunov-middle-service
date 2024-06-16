@@ -1,6 +1,6 @@
-package com.gpb.middle.services.userRegisterService.userRegisterServiceClient;
+package com.gpb.middle.services.userRegisterService.userRegisterServiceClients;
 
-import com.gpb.middle.services.userRegisterService.UserRegisterServiceClientImpl;
+import com.gpb.middle.services.userRegisterService.UserRegisterServiceClient;
 import com.gpb.middle.dto.request.CreateUserDTO;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.exception.CreateUserException;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ConditionalOnProperty(value="project.http.enabled")
-public class UserRegisterServiceHttpClient implements UserRegisterServiceClientImpl {
+public class UserRegisterServiceHttpClient implements UserRegisterServiceClient {
 
     private final String path;
 

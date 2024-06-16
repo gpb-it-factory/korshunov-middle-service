@@ -1,4 +1,4 @@
-package com.gpb.middle.services.createAccountService.createAccountServiceClient;
+package com.gpb.middle.services.createAccountService.createAccountServiceClients;
 
 import com.gpb.middle.dto.request.CreateAccountDTO;
 import com.gpb.middle.dto.response.AccountDTO;

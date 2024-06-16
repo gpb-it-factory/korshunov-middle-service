@@ -2,6 +2,6 @@ package com.gpb.middle.services.userRegisterService;
 
 import com.gpb.middle.dto.request.CreateUserDTO;
 
-public interface UserRegisterServiceClientImpl {
+public interface UserRegisterServiceClient {
     void runRequest(CreateUserDTO createUserDTO);
 }
