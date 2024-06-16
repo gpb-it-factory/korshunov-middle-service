@@ -28,7 +28,7 @@ public class CreateAccountServiceMemoryClient implements CreateAccountServiceCli
 
     public ResponseEntity<Error> runRequest(Long id, CreateAccountDTO createAccountDTO) {
         var accountDTO = new AccountDTO(id, createAccountDTO.getAccountName());
-        if (!checkUser(accountDTO)) {
+        if (checkUser(accountDTO)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Error("Вы уже зарегистрированы", "404"));
         };
