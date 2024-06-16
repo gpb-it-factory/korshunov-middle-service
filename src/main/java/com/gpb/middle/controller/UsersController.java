@@ -1,6 +1,7 @@
 package com.gpb.middle.controller;
 
 import com.gpb.middle.dto.request.CreateAccountDTO;
+import com.gpb.middle.dto.response.UserDTO;
 import com.gpb.middle.services.createAccountService.CreateAccountService;
 import com.gpb.middle.services.userRegisterService.UserRegisterService;
 import com.gpb.middle.dto.request.CreateUserDTO;
@@ -32,8 +33,9 @@ public class UsersController {
     }
 
     @PostMapping(path = "/{id}/accounts")
-    public ResponseEntity<?> createAccount(@PathParam("id") Long id, @Valid @RequestBody CreateAccountDTO createAccountDTO) {
+    public ResponseEntity<?> createAccount(@PathVariable Long id,
+                                           @Valid @RequestBody CreateAccountDTO createAccountDTO) {
         createAccountService.exec(id, createAccountDTO);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
