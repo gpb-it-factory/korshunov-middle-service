@@ -1,16 +1,13 @@
 package com.gpb.middle.services.userRegisterService.userRegisterServiceClients;
 
-import com.gpb.middle.services.userRegisterService.UserRegisterServiceClient;
 import com.gpb.middle.dto.request.CreateUserDTO;
 import com.gpb.middle.dto.response.Error;
-import com.gpb.middle.exception.CreateUserException;
+import com.gpb.middle.services.userRegisterService.UserRegisterServiceClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestTemplate;
 
 @Component
 @ConditionalOnProperty(value="project.http.enabled")

@@ -31,7 +31,7 @@ public class UserRegisterServiceTest {
         Mockito.doReturn(response).when(userRegisterServiceClient).runRequest(any());
 
         Assertions.assertThrows(CreateAccountException.class,
-                () -> userRegisterService.register(new CreateUserDTO(111L)));
+                () -> userRegisterService.register(new CreateUserDTO(111L, "name")));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class UserRegisterServiceTest {
         Mockito.doThrow(RestClientException.class).when(userRegisterServiceClient).runRequest(any());
 
         Assertions.assertThrows(CreateAccountException.class,
-                () -> userRegisterService.register(new CreateUserDTO(111L)));
+                () -> userRegisterService.register(new CreateUserDTO(111L, "name")));
     }
 
     @Test
@@ -47,6 +47,6 @@ public class UserRegisterServiceTest {
         var response = ResponseEntity.status(204).build();
         Mockito.doReturn(response).when(userRegisterServiceClient).runRequest(any());
 
-        Assertions.assertDoesNotThrow(() -> userRegisterService.register(new CreateUserDTO(111L)));
+        Assertions.assertDoesNotThrow(() -> userRegisterService.register(new CreateUserDTO(111L, "name")));
     }
 }

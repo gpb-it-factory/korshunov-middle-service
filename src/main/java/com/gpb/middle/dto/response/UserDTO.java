@@ -7,9 +7,10 @@ import lombok.Getter;
 @EqualsAndHashCode
 public final class UserDTO {
 
-    private final String userId;
+    private final Long userId;
 
-    public UserDTO(String userId) {
+    public UserDTO(Long userId) {
         this.userId = userId;
     }
+
 }
