@@ -3,7 +3,6 @@ package com.gpb.middle.repository;
 import com.gpb.middle.dto.response.AccountDTO;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -12,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Getter
 public class AccountRepositoryImpl implements AccountRepository{
 
-    List<AccountDTO> accounts = new CopyOnWriteArrayList<>();
+    private List<AccountDTO> accounts = new CopyOnWriteArrayList<>();
 
     @Override
     public List<AccountDTO> getAccounts() {

@@ -3,7 +3,6 @@ package com.gpb.middle.repository;
 import com.gpb.middle.dto.response.UserDTO;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;

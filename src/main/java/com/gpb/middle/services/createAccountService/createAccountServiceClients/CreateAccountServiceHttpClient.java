@@ -13,9 +13,9 @@ import org.springframework.web.client.RestClient;
 @ConditionalOnProperty(value="project.http.enabled")
 public class CreateAccountServiceHttpClient implements CreateAccountServiceClient {
 
-    private String path;
+    private final String path;
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     public CreateAccountServiceHttpClient(@Value("${project.create_account.path}") String path) {
         this.path = path;

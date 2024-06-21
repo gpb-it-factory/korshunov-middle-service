@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(value="project.memory.enabled")
 public class UserRegisterServiceInMemoryClient implements UserRegisterServiceClient {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     public UserRegisterServiceInMemoryClient(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -24,11 +24,14 @@ public class UserRegisterServiceInMemoryClient implements UserRegisterServiceCli
     }
 
     public ResponseEntity<Error> runRequest(CreateUserDTO createUserDTO) {
-        var newUser = new UserDTO(createUserDTO.getUserId());
+        var newUser = new UserDTO(createUserDTO.getUserId(), createUserDTO.getUserName());
         if (checkUser(newUser)) {
-            return ResponseEntity.status(400).body(new Error("Вы уже зарегистрированы!", "400"));
+            return ResponseEntity.status(400).body(new Error("Вы уже зарегистрированы!",
+                    "type",
+                    "400",
+                    "trace_id"));
         }
-        userRepository.getUsers().add(newUser);
+        userRepository.add(newUser);
         return ResponseEntity.status(204).build();
     }
 }

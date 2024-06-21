@@ -27,7 +27,10 @@ public class CreateAccountServiceTest {
 
     @Test
     public void errorReturnWithCreateAccountException() {
-        var response = ResponseEntity.status(400).body(new Error("new error", "400"));
+        var response = ResponseEntity.status(400).body(new Error("new error",
+                "type",
+                "400",
+                "trace_id"));
         Mockito.doReturn(response).when(createAccountServiceClient).runRequest(any(), any());
 
         Assertions.assertThrows(CreateAccountException.class,

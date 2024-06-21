@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
+import java.util.Arrays;
+
 @Service
 public class UserRegisterService {
 
@@ -24,7 +26,10 @@ public class UserRegisterService {
                 throw new CreateAccountException((Error) response.getBody());
             }
         } catch (RestClientException error) {
-            throw new CreateAccountException(new Error(error.getMessage(), "500"));
+            throw new CreateAccountException(new Error(error.getMessage(),
+                    error.getClass().toString(),
+                    "500",
+                    Arrays.toString(error.getStackTrace())));
         }
     }
 }
