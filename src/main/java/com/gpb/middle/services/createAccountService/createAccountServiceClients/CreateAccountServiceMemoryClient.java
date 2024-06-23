@@ -1,7 +1,7 @@
 package com.gpb.middle.services.createAccountService.createAccountServiceClients;
 
 import com.gpb.middle.dto.request.CreateAccountDTO;
-import com.gpb.middle.dto.response.AccountDTO;
+import com.gpb.middle.dto.response.AccountDTOForStub;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.repository.AccountRepository;
 import com.gpb.middle.repository.UserRepository;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Component
 @ConditionalOnProperty(value="project.memory.enabled")
@@ -42,7 +43,11 @@ public class CreateAccountServiceMemoryClient implements CreateAccountServiceCli
                     "type", "400", "trace_id"));
         }
 
-        var accountDTO = new AccountDTO(id ,createAccountDTO.getAccountName(), new BigDecimal("5000.00"));
+        var newId = UUID.randomUUID();
+        var accountDTO = new AccountDTOForStub(id ,
+                newId.toString(),
+                createAccountDTO.getAccountName(),
+                new BigDecimal("5000.00"));
         accountRepository.add(accountDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

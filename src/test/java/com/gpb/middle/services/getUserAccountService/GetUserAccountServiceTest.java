@@ -1,6 +1,7 @@
 package com.gpb.middle.services.getUserAccountService;
 
 import com.gpb.middle.dto.response.AccountDTO;
+import com.gpb.middle.dto.response.AccountDTOForStub;
 import com.gpb.middle.dto.response.Error;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -26,13 +28,14 @@ public class GetUserAccountServiceTest {
 
     @Test
     void testGetUserService_WithCorrectResponse() {
-        var response = ResponseEntity.status(200).body(new AccountDTO(11L,
+        var id = UUID.randomUUID();
+        var response = ResponseEntity.status(200).body(new AccountDTO(id.toString(),
                 "new",
-                new BigDecimal("5000.00")));
+                "5000.00"));
         Mockito.doReturn(response).when(getUserAccountServiceClient).runRequest(any());
         var result = getUserAccountService.getAccount(11L);
 
-        Assertions.assertEquals(true, result.isResponse());
+        Assertions.assertTrue(result.isResponse());
     }
 
     @Test
@@ -44,6 +47,6 @@ public class GetUserAccountServiceTest {
         Mockito.doReturn(response).when(getUserAccountServiceClient).runRequest(any());
         var result = getUserAccountService.getAccount(11L);
 
-        Assertions.assertEquals(true, result.isError());
+        Assertions.assertTrue(result.isError());
     }
 }

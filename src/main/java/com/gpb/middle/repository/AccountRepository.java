@@ -1,15 +1,15 @@
 package com.gpb.middle.repository;
 
-import com.gpb.middle.dto.response.AccountDTO;
+import com.gpb.middle.dto.response.AccountDTOForStub;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository {
 
-    List<AccountDTO> getAccounts();
+    List<AccountDTOForStub> getAccounts();
 
-    void add(AccountDTO accountDTO);
+    void add(AccountDTOForStub accountDTO);
 
-    Optional<AccountDTO> findByUserId(Long id);
+    Optional<AccountDTOForStub> findByUserId(Long id);
 }

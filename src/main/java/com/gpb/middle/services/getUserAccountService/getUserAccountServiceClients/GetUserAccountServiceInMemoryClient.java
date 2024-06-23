@@ -1,5 +1,6 @@
 package com.gpb.middle.services.getUserAccountService.getUserAccountServiceClients;
 
+import com.gpb.middle.dto.response.AccountDTO;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.repository.AccountRepository;
 import com.gpb.middle.repository.UserRepository;
@@ -41,6 +42,9 @@ public class GetUserAccountServiceInMemoryClient implements GetUserAccountServic
                     "400",
                     "trace_id"));
         }
-        return ResponseEntity.status(200).body(account.get());
+        var accountEntity = account.get();
+        return ResponseEntity.status(200).body(new AccountDTO(accountEntity.getAccountId(),
+                accountEntity.getAccountName(),
+                accountEntity.getAmount().toString()));
     }
 }
