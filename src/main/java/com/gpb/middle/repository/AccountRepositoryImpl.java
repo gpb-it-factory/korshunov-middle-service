@@ -1,9 +1,8 @@
 package com.gpb.middle.repository;
 
-import com.gpb.middle.dto.response.AccountDTO;
+import com.gpb.middle.dto.response.AccountDTOForStub;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -12,20 +11,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Getter
 public class AccountRepositoryImpl implements AccountRepository{
 
-    List<AccountDTO> accounts = new CopyOnWriteArrayList<>();
+    private List<AccountDTOForStub> accounts = new CopyOnWriteArrayList<>();
 
     @Override
-    public List<AccountDTO> getAccounts() {
+    public List<AccountDTOForStub> getAccounts() {
         return accounts;
     }
 
     @Override
-    public void add(AccountDTO accountDTO) {
+    public void add(AccountDTOForStub accountDTO) {
         accounts.add(accountDTO);
     }
 
     @Override
-    public Optional<AccountDTO> findByUserId(Long id) {
+    public Optional<AccountDTOForStub> findByUserId(Long id) {
         return accounts.stream()
                 .filter(account -> account.getUserId() == id)
                 .findFirst();

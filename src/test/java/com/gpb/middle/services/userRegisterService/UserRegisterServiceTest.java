@@ -27,7 +27,10 @@ public class UserRegisterServiceTest {
 
     @Test
     public void testUserRegisterService_throwExceptionOnStatusCodeNot204() {
-        var response = ResponseEntity.status(400).body(new Error("new error", "400"));
+        var response = ResponseEntity.status(400).body(new Error("new error",
+                "type",
+                "400",
+                "trace_id"));
         Mockito.doReturn(response).when(userRegisterServiceClient).runRequest(any());
 
         Assertions.assertThrows(CreateAccountException.class,

@@ -7,11 +7,6 @@ import lombok.Getter;
 @Getter
 public final class Error {
 
-    public Error(String message, String code) {
-        this.message = message;
-        this.code = code;
-    }
-
     private String message;
 
     private String type;

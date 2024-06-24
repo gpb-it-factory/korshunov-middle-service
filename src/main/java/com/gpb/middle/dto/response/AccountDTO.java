@@ -1,15 +1,17 @@
 package com.gpb.middle.dto.response;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
-@EqualsAndHashCode
 @Getter
+@Setter
+@AllArgsConstructor
 public class AccountDTO {
 
-    private Long userId;
+    private String accountId;
 
     private String accountName;
+
+    private String amount;
 }
