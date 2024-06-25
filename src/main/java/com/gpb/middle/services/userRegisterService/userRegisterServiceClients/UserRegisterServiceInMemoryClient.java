@@ -2,8 +2,8 @@ package com.gpb.middle.services.userRegisterService.userRegisterServiceClients;
 
 import com.gpb.middle.dto.request.CreateUserDTO;
 import com.gpb.middle.dto.response.Error;
-import com.gpb.middle.dto.response.UserDTO;
-import com.gpb.middle.repository.UserRepository;
+import com.gpb.middle.models.User;
+import com.gpb.middle.repo.UserRepository;
 import com.gpb.middle.services.userRegisterService.UserRegisterServiceClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
@@ -13,25 +13,27 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(value="project.memory.enabled")
 public class UserRegisterServiceInMemoryClient implements UserRegisterServiceClient {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserRegisterServiceInMemoryClient(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public boolean checkUser(UserDTO user) {
-        return userRepository.getUsers().contains(user);
+    public boolean checkUser(Long id) {
+        return userRepository.findByUserId(id).isPresent();
     }
 
     public ResponseEntity<Error> runRequest(CreateUserDTO createUserDTO) {
-        var newUser = new UserDTO(createUserDTO.getUserId(), createUserDTO.getUserName());
-        if (checkUser(newUser)) {
+        if (checkUser(createUserDTO.getUserId())) {
             return ResponseEntity.status(400).body(new Error("Вы уже зарегистрированы!",
                     "type",
                     "400",
                     "trace_id"));
         }
-        userRepository.add(newUser);
+        var newUser = new User();
+        newUser.setUserId(createUserDTO.getUserId());
+        newUser.setUserName(createUserDTO.getUserName());
+        userRepository.save(newUser);
         return ResponseEntity.status(204).build();
     }
 }

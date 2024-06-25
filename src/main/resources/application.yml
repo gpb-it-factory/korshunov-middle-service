@@ -1,6 +1,10 @@
 spring:
   application:
     name: middle
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 project:
   http:
@@ -13,3 +17,5 @@ project:
     path: "http://localhost:8080/v2/users/{id}/accounts"
   get_user_accounts:
     path: "http://localhost:8080/v2/users/{id}/accounts"
+  transfer:
+    path: "http://localhost:8080/transfer"
