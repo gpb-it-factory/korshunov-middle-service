@@ -1,15 +1,11 @@
 package com.gpb.middle.exceptionHandler;
 
-import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.exception.CreateAccountException;
 import com.gpb.middle.exception.CreateUserException;
-import com.gpb.middle.exception.TransferException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice

@@ -1,7 +1,6 @@
 package com.gpb.middle.services.getUserAccountService;
 
 import com.gpb.middle.dto.response.AccountDTO;
-import com.gpb.middle.dto.response.AccountDTOForStub;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.dto.response.Result;
 import org.springframework.http.HttpStatus;

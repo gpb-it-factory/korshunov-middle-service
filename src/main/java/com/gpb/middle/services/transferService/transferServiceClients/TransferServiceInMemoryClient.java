@@ -3,7 +3,6 @@ package com.gpb.middle.services.transferService.transferServiceClients;
 import com.gpb.middle.dto.request.CreateTransferDTO;
 import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.dto.response.TransferDTO;
-import com.gpb.middle.exception.CreateAccountException;
 import com.gpb.middle.repo.AccountRepository;
 import com.gpb.middle.repo.UserRepository;
 import com.gpb.middle.services.transferService.TransferServiceClient;
@@ -11,6 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
