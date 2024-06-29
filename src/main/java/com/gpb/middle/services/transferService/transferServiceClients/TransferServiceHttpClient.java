@@ -1,6 +1,7 @@
 package com.gpb.middle.services.transferService.transferServiceClients;
 
 import com.gpb.middle.dto.request.CreateTransferDTO;
+import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.dto.response.TransferDTO;
 import com.gpb.middle.services.transferService.TransferServiceClient;
 import org.springframework.beans.factory.annotation.Value;

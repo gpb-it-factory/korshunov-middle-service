@@ -6,16 +6,19 @@ spring:
     hibernate:
       ddl-auto: update
 
+server:
+  port: 8081
+
 project:
   http:
     enabled: false
   memory:
     enabled: true
   register:
-    path: "http://localhost:8080/v2/users"
+    path: "http://localhost:8082/v2/users"
   create_account:
-    path: "http://localhost:8080/v2/users/{id}/accounts"
+    path: "http://localhost:8082/v2/users/{id}/accounts"
   get_user_accounts:
-    path: "http://localhost:8080/v2/users/{id}/accounts"
+    path: "http://localhost:8082/v2/users/{id}/accounts"
   transfer:
-    path: "http://localhost:8080/transfer"
+    path: "http://localhost:8082/transfer"
