@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'org.openapi.generator' version '7.6.0'
 	id 'org.springframework.boot' version '3.2.6'
 	id 'io.spring.dependency-management' version '1.1.5'
 }
@@ -15,7 +16,25 @@ repositories {
 	mavenCentral()
 }
 
+openApiGenerate {
+	inputSpec = "${projectDir}/src/main/resources/openapi.yaml"
+	generatorName = 'spring'
+	outputDir = "${projectDir}/build/generated/sources/openapi"
+	apiPackage = 'com.gpb.middle.rest.api'
+	modelPackage = 'com.gpb.middle.rest.model'
+	generateApiDocumentation = false
+	configOptions = [
+			dateLibrary: "java17",
+			interfaceOnly: "true",
+			skipDefaultInterface: "true"
+	]
+}
+
+tasks.openApiGenerate.dependsOn compileJava
+
 dependencies {
+	runtimeOnly("com.h2database:h2")
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")

@@ -2,8 +2,8 @@ package com.gpb.middle.services.getUserAccountService.getUserAccountServiceClien
 
 import com.gpb.middle.dto.response.AccountDTO;
 import com.gpb.middle.dto.response.Error;
-import com.gpb.middle.repository.AccountRepository;
-import com.gpb.middle.repository.UserRepository;
+import com.gpb.middle.repo.AccountRepository;
+import com.gpb.middle.repo.UserRepository;
 import com.gpb.middle.services.getUserAccountService.GetUserAccountServiceClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(value="project.memory.enabled")
 public class GetUserAccountServiceInMemoryClient implements GetUserAccountServiceClient {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     public GetUserAccountServiceInMemoryClient(UserRepository userRepository, AccountRepository accountRepository) {
         this.userRepository = userRepository;
@@ -25,7 +25,7 @@ public class GetUserAccountServiceInMemoryClient implements GetUserAccountServic
 
     @Override
     public ResponseEntity<?> runRequest(Long id) {
-        var user = userRepository.findById(id);
+        var user = userRepository.findByUserId(id);
 
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error("Вам нужно зарегистрироваться!",
@@ -42,8 +42,10 @@ public class GetUserAccountServiceInMemoryClient implements GetUserAccountServic
                     "400",
                     "trace_id"));
         }
+
         var accountEntity = account.get();
-        return ResponseEntity.status(200).body(new AccountDTO(accountEntity.getAccountId(),
+        return ResponseEntity.status(200).body(new AccountDTO(
+                accountEntity.getAccountId(),
                 accountEntity.getAccountName(),
                 accountEntity.getAmount().toString()));
     }

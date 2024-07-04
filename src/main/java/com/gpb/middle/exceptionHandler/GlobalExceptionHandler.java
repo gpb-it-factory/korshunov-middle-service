@@ -1,10 +1,8 @@
 package com.gpb.middle.exceptionHandler;
 
-import com.gpb.middle.dto.response.Error;
 import com.gpb.middle.exception.CreateAccountException;
 import com.gpb.middle.exception.CreateUserException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,7 +17,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 exception.getMessage(),
                 HttpStatus.valueOf(Integer.parseInt(exception.getCode())));
     }
-
+    
     @ExceptionHandler(CreateAccountException.class)
     public ResponseEntity<String> handlerCreateUserException(CreateAccountException exception) {
         return new ResponseEntity<>(

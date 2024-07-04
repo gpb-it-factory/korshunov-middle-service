@@ -1,10 +1,10 @@
 package com.gpb.middle.services.createAccountService.createAccountServiceClients;
 
 import com.gpb.middle.dto.request.CreateAccountDTO;
-import com.gpb.middle.dto.response.AccountDTOForStub;
 import com.gpb.middle.dto.response.Error;
-import com.gpb.middle.repository.AccountRepository;
-import com.gpb.middle.repository.UserRepository;
+import com.gpb.middle.models.Account;
+import com.gpb.middle.repo.AccountRepository;
+import com.gpb.middle.repo.UserRepository;
 import com.gpb.middle.services.createAccountService.CreateAccountServiceClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
@@ -18,18 +18,18 @@ import java.util.UUID;
 @ConditionalOnProperty(value="project.memory.enabled")
 public class CreateAccountServiceMemoryClient implements CreateAccountServiceClient {
 
-    private AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
-    private UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
-    public CreateAccountServiceMemoryClient(AccountRepository accountRepository,
-                                            UserRepository userRepository) {
+    public CreateAccountServiceMemoryClient(UserRepository userRepository,
+                                            AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
     }
 
     public ResponseEntity<Error> runRequest(Long id, CreateAccountDTO createAccountDTO) {
-        var user = userRepository.findById(id);
+        var user = userRepository.findByUserId(id);
 
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error("Вам нужно зарегистрироваться!",
@@ -44,11 +44,13 @@ public class CreateAccountServiceMemoryClient implements CreateAccountServiceCli
         }
 
         var newId = UUID.randomUUID();
-        var accountDTO = new AccountDTOForStub(id ,
-                newId.toString(),
-                createAccountDTO.getAccountName(),
-                new BigDecimal("5000.00"));
-        accountRepository.add(accountDTO);
+        var newAccount = new Account();
+        newAccount.setUserId(id);
+        newAccount.setAccountName(createAccountDTO.getAccountName());
+        newAccount.setAccountId(newId.toString());
+        newAccount.setAmount(new BigDecimal("5000.00"));
+
+        accountRepository.save(newAccount);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
